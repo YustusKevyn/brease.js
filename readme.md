@@ -13,11 +13,17 @@
 <br/>
 <br/>
 
-## Installation
+## Getting started
 
+### Download
 
+Via npm:
 
-## Usage
+```bash
+npm i easings-js
+```
+
+### Usage
 
 A simple eased animation using a Penner function to translate a circle on the x-axis from -100px to 100px during 1000ms.
 
@@ -46,9 +52,11 @@ let easing = new Easing("outQuint").fn;
 
 ## API
 
-### `Easing(fn, t1?, t2?, p1?, p2?)`
+### `Easing`
 
-| Name                                    | Description                                                                   | Default    |
+Constructor: `(fn, t1?, t2?, p1?, p2?)`
+
+| Argument                                | Description                                                                   | Default    |
 | --------------------------------------- | ----------------------------------------------------------------------------- | ---------- |
 | `fn: ((t: number) => number) \| string` | Easing function, name of [penner function](#penners-functions), or `"linear"` | `"linear"` |
 | `t1?: number`                           | Start time                                                                    | `0`        |
@@ -56,20 +64,23 @@ let easing = new Easing("outQuint").fn;
 | `p1?: number`                           | Start progression value                                                       | `0`        |
 | `p2?: number`                           | End progression value                                                         | `1`        |
 
-
 #### Properties and Methods:
 
-| Name                              | Description                                                                                         |
-| --------------------------------- | --------------------------------------------------------------------------------------------------- |
-| [`time: Time`](#time)             | Manages the easing's start and end time → defines the range of the input value (`t`)                |
-| [`progress: Progress`](#progress) | Manages the start and end value of the easing's progression → defines the range of the output value |
-| `fn: (t: number) => number`       | Returns the easing function adjusted to the easing's `time` and `progress`                          |
-| `at(t: number): number`           | Returns the progress at the specified time                                                          |
-| `keyframes(n: number): number[]`  | Returns an array of values by splitting the progress into `n` parts                                 |
-| `invert(): void`                  | Inverts the easing                                                                                  |
-| `clone(): Easing`                 | Returns a new easing instance with the same time and progress                                       |
+| Name                             | Description                                                                |
+| -------------------------------- | -------------------------------------------------------------------------- |
+| `time: Time`                     | *→ see: [time](#time)*                                                     |
+| `progress: Progress`             | *→ see: [progress](#progress)*                                             |
+| `fn: (t: number) => number`      | Returns the easing function adjusted to the easing's `time` and `progress` |
+| `at(t: number): number`          | Returns the progress at the specified time                                 |
+| `keyframes(n: number): number[]` | Returns an array of values by splitting the progress into `n` parts        |
+| `invert(): void`                 | Inverts the easing                                                         |
+| `clone(): Easing`                | Returns a new easing instance with the same time and progress              |
 
 ### `Time`
+
+Manages the easing's start and end time thus defininig the range of the input value
+
+#### Properties and Methods:
 
 | Name                                  | Description                                                                   |
 | ------------------------------------- | ----------------------------------------------------------------------------- |
@@ -79,6 +90,10 @@ let easing = new Easing("outQuint").fn;
 | `range: [start: number, end: number]` | Sets/gets the `start` and `end` as an array                                   |
 
 ### `Progress`
+
+Manages the start and end value of the easing's progression thus defining the range of the output value
+
+#### Properties and Methods:
 
 | Name                                  | Description                                                                |
 | ------------------------------------- | -------------------------------------------------------------------------- |
@@ -106,17 +121,25 @@ For more information, visit [easings.net](https://easings.net/).
 
 ## Cubic Bézier Curves 
 
-Bézier curve easings can be created using the `Bezier` object which extends the `Easing` class. All properties and methods from `Easing` are also available on `Bezier`.
+Bézier curve easings can be created using the `Bezier` object which extends the `Easing` class.
 
-### `Bezier(x1, y1, x2, y2, t1?, t2?, p1?, p2?)`
+### `Bezier`
 
-| Name          | Description                                 |
+#### Consturctor: `(x1, y1, x2, y2, t1?, t2?, p1?, p2?)`
+
+| Argument      | Description                                 |
 | ------------- | ------------------------------------------- |
 | `x1?: number` | x coordinate of P1. Must be between 0 and 1 |
 | `y1?: number` | y coordinate of P1                          |
 | `x2?: number` | x coordinate of P2. Must be between 0 and 1 |
 | `y2?: number` | y coordinate of P2                          |
 | ...           | Same arguments as `Easing`                  |
+
+#### Properties and Methods:
+
+All properties and methods from `Easing` are also available on `Bezier`.
+
+#### Example:
 
 ```javascript
 import { Bezier } from "easings-js";

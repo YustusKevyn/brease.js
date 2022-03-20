@@ -47,9 +47,9 @@ export default class Easing{
    * Inverts the easing 
    */
   invert(){
-    let {start, end} = this.time;
-    this.time.end = start;
-    this.time.start = end;
+    let {start, end} = this.progress;
+    this.progress.end = start;
+    this.progress.start = end;
   };
 
   /**

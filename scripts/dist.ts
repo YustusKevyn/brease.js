@@ -24,6 +24,13 @@ import typescript from "typescript";
     ...base,
     moduleResolution: typescript.ModuleResolutionKind.Node12
   });
+
+  // AMD 
+  await compile("dist/lib/amd/", files, {
+    ...base,
+    module: typescript.ModuleKind.AMD,
+    outFile: "index.js"
+  });
 })();
 
 async function exists(path: string){
@@ -45,7 +52,7 @@ async function compile(dir: string, files: string[], options: typescript.Compile
   let out: Record<string, string> = {},
   host = typescript.createCompilerHost(options);
   host.writeFile = (name: string, content: string) => {
-    name = path.relative("src", name);
+    if(!options.outFile) name = path.relative("src", name);
     out[name] = content;
   };
   

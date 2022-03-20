@@ -10,10 +10,10 @@ export default class Easing{
   readonly time: Time;
   readonly progress: Progress;
 
-  constructor(fn: Param, timeStart = 0, timeEnd = 1, progressStart = 0, progressEnd = 1){
+  constructor(fn: Param = "linear", t1 = 0, t2 = 1, p1 = 0, p2 = 1){
     this._fn = typeof fn === "string" ? Library[fn] : fn;
-    this.time = new Time(timeStart, timeEnd);
-    this.progress = new Progress(progressStart, progressEnd);
+    this.time = new Time(t1, t2);
+    this.progress = new Progress(p1, p2);
   };
 
   get fn(): Function{
@@ -21,9 +21,9 @@ export default class Easing{
   };
 
   /**
-   * Returns the progression at the specified time 
+   * Returns the progress at the specified time 
    * @param t 
-   * @returns progression 
+   * @returns progress 
    */
   at(t: number){
     let x = this.normalise((t-this.time.start)/this.time.duration), y = this._fn(x);

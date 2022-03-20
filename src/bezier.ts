@@ -1,6 +1,6 @@
 import Easing from "./easing";
 
-type Args = ConstructorParameters<typeof Easing> extends [f: any, ...args: infer A] ? A : never;
+type Args = ConstructorParameters<typeof Easing> extends [f?: any, ...args: infer A] ? A : never;
 
 export default class Bezier extends Easing{
   constructor(x1: number, y1: number, x2: number, y2: number, ...agrs: Args){

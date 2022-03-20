@@ -64,7 +64,7 @@ Constructor: `(fn, t1?, t2?, p1?, p2?)`
 | `p1?: number`                           | Start progression value                                                       | `0`        |
 | `p2?: number`                           | End progression value                                                         | `1`        |
 
-#### Properties and Methods:
+**Properties and Methods:**
 
 | Name                             | Description                                                                |
 | -------------------------------- | -------------------------------------------------------------------------- |
@@ -80,7 +80,7 @@ Constructor: `(fn, t1?, t2?, p1?, p2?)`
 
 Manages the easing's start and end time thus defininig the range of the input value
 
-#### Properties and Methods:
+**Properties and Methods:**
 
 | Name                                  | Description                                                                   |
 | ------------------------------------- | ----------------------------------------------------------------------------- |
@@ -89,7 +89,7 @@ Manages the easing's start and end time thus defininig the range of the input va
 | `duration: number`                    | Sets/gets the duration. Automatically adjusts the value of `end` when changed |
 | `range: [start: number, end: number]` | Sets/gets the `start` and `end` as an array                                   |
 
-#### Example:
+**Example:**
 
 ```javascript
 let easing = new Easing("outQuint");
@@ -103,7 +103,7 @@ easing.at(0) // → 0.5
 
 Manages the start and end value of the easing's progression thus defining the range of the output value
 
-#### Properties and Methods:
+**Properties and Methods:**
 
 | Name                                  | Description                                                                |
 | ------------------------------------- | -------------------------------------------------------------------------- |
@@ -112,7 +112,7 @@ Manages the start and end value of the easing's progression thus defining the ra
 | `delta: number`                       | Sets/gets the delta. Automatically adjusts the value of `end` when changed |
 | `range: [start: number, end: number]` | Sets/gets the `start` and `end` as an array                                |
 
-#### Example:
+**Example:**
 
 ```javascript
 let easing = new Easing("outQuint");
@@ -125,7 +125,7 @@ easing.at(0) // → -200
 
 ## Penner's Functions 
 
-Each penner function has an in, out, inOut and outIn variant. The following is a complete table with the name of all supported functions:
+Each penner function has an in, out, in-out and out-in variant. The following is a complete table with the name of all supported functions:
 
 | In      | Out      | In-Out     | Out-In     |
 | ------- | -------- | ---------- | ---------- |
@@ -156,11 +156,11 @@ Bézier curve easings can be created using the `Bezier` object which extends the
 | `y2?: number` | y coordinate of P2                          |
 | ...           | Same arguments as `Easing`                  |
 
-#### Properties and Methods:
+**Properties and Methods:**
 
 All properties and methods from `Easing` are also available on `Bezier`.
 
-#### Example:
+**Example:**
 
 ```javascript
 import { Bezier } from "brease-js";

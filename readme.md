@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="80" src="brease.png"/>
+  <img width="80" src="breeze.png"/>
   <h1>brease.js</h1>
   <p><b>Adjustable easing functions</b></p>
   <p>

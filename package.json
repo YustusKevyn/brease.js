@@ -1,7 +1,7 @@
 {
-  "name": "easings-js",
+  "name": "brease-js",
   "version": "1.0.0",
-  "description": "🌟 Adjustable easing functions",
+  "description": "🍃 Adjustable easing functions",
   "author": {
     "name": "Kevynson"
   },
@@ -13,10 +13,10 @@
     "penner",
     "penner-easing-functions"
   ],
-  "homepage": "https://github.com/YustusKevyn/lunisol",
+  "homepage": "https://github.com/YustusKevyn/brease.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YustusKevyn/lunisol.git"
+    "url": "git+https://github.com/YustusKevyn/brease.js.git"
   },
   "main": "dist/lib/cjs/index.js",
   "module": "dist/lib/esm/index.js",

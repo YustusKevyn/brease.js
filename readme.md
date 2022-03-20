@@ -1,6 +1,6 @@
 <div align="center">
-  <img width="80" src="star.png"/>
-  <h1>easings.js</h1>
+  <img width="80" src="brease.png"/>
+  <h1>brease.js</h1>
   <p><b>Adjustable easing functions</b></p>
   <p>
     • Supports Penner's easing functions<br/>
@@ -20,7 +20,7 @@
 Via npm:
 
 ```bash
-npm i easings-js
+npm i brease-js
 ```
 
 ### Usage
@@ -28,7 +28,7 @@ npm i easings-js
 A simple eased animation using a Penner function to translate a circle on the x-axis from -100px to 100px during 1000ms.
 
 ```javascript
-import { Easing } from "easings-js";
+import { Easing } from "brease-js";
 
 let duration = 1000,
 start = performance.now(),
@@ -163,6 +163,6 @@ All properties and methods from `Easing` are also available on `Bezier`.
 #### Example:
 
 ```javascript
-import { Bezier } from "easings-js";
+import { Bezier } from "brease-js";
 let easing = new Bezier(0.22, 1, 0.36, 1);
 ```

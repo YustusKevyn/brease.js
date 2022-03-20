@@ -89,6 +89,16 @@ Manages the easing's start and end time thus defininig the range of the input va
 | `duration: number`                    | Sets/gets the duration. Automatically adjusts the value of `end` when changed |
 | `range: [start: number, end: number]` | Sets/gets the `start` and `end` as an array                                   |
 
+#### Example:
+
+```javascript
+let easing = new Easing("outQuint");
+easing.time.start = 10; // start = 10, end = 0
+easing.time.duration = 100; // start = 10, end = 110
+easing.time.range = [-1, 1]; // start = -1, end = 1
+easing.at(0) // → 0.5
+```
+
 ### `Progress`
 
 Manages the start and end value of the easing's progression thus defining the range of the output value
@@ -101,6 +111,17 @@ Manages the start and end value of the easing's progression thus defining the ra
 | `end: number`                         | Sets/gets the end value                                                    |
 | `delta: number`                       | Sets/gets the delta. Automatically adjusts the value of `end` when changed |
 | `range: [start: number, end: number]` | Sets/gets the `start` and `end` as an array                                |
+
+#### Example:
+
+```javascript
+let easing = new Easing("outQuint");
+easing.progress.start = -100; // start = -100, end = 0
+easing.progress.delta = 50; // start = -100, end = -50
+easing.progress.range = [-100, -200]; // start = -100, end = -200
+easing.invert();
+easing.at(0) // → -200
+```
 
 ## Penner's Functions 
 

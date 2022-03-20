@@ -1,0 +1,33 @@
+{
+  "name": "easings-js",
+  "version": "0.0.1",
+  "description": "",
+  "author": {
+    "name": "Kevynson"
+  },
+  "homepage": "https://github.com/YustusKevyn/lunisol",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YustusKevyn/lunisol.git"
+  },
+  "main": "dist/lib/cjs/index.js",
+  "module": "dist/lib/esm/index.js",
+  "types": "dist/lib/esm/index.d.ts",
+  "files": [
+    "dist/lib/**/*",
+    "star.png"
+  ],
+  "scripts": {
+    "test": "jest",
+    "dist": "ts-node scripts/dist"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/jest": "^27.4.1",
+    "glob": "^7.2.0",
+    "jest": "^27.5.1",
+    "ts-jest": "^27.1.3",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.2"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "moduleResolution": "Node",
+    "exactOptionalPropertyTypes": true
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

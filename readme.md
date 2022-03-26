@@ -15,12 +15,12 @@
 
 ## Getting started
 
-### Download
+### Installation
 
 Via npm:
 
 ```bash
-npm i brease-js
+$ npm i brease-js
 ```
 
 ### Usage

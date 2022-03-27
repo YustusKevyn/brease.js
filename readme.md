@@ -20,7 +20,7 @@
 Via npm:
 
 ```bash
-npm i brease-js
+npm i brease.js
 ```
 
 ### Usage
@@ -28,7 +28,7 @@ npm i brease-js
 A simple eased animation using a Penner function to translate a circle on the x-axis from -100px to 100px during 1000ms.
 
 ```javascript
-import { Easing } from "brease-js";
+import { Easing } from "brease.js";
 
 let duration = 1000,
 start = performance.now(),
@@ -163,6 +163,6 @@ All properties and methods from `Easing` are also available on `Bezier`.
 **Example:**
 
 ```javascript
-import { Bezier } from "brease-js";
+import { Bezier } from "brease.js";
 let easing = new Bezier(0.22, 1, 0.36, 1);
 ```

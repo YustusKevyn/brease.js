@@ -15,12 +15,12 @@
 
 ## Getting started
 
-### Download
+### Installation
 
 Via npm:
 
 ```bash
-npm i brease.js
+$ npm i brease.js
 ```
 
 ### Usage
@@ -138,7 +138,7 @@ Each penner function has an in, out, in-out and out-in variant. The following is
 | inCirc  | outCirc  | inOutCirc  | outInCirc  |
 | inBack  | outBack  | inOutBack  | outInBack  |
 
-For more information, visit [easings.net](https://easings.net/).
+For more information, visit [easings.net ↗](https://easings.net/).
 
 ## Cubic Bézier Curves 
 

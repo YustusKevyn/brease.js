@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
     "strict": true,
-    "target": "ESNext",
+    "target": "ES6",
+    "module": "CommonJS",
     "moduleResolution": "Node",
-    "exactOptionalPropertyTypes": true
+    "outDir": "lib/cjs"
   },
   "include": [
     "src/**/*"

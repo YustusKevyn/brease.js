@@ -1,33 +1,44 @@
-import type { Function, Param } from "./types";
+import type { Args, Function, Param } from "./types";
 
-import Time from "./time";
-import Library from "./library";
-import Progress from "./progress";
+import Time from "./helpers/time";
+import Output from "./helpers/output";
 
 export default class Easing{
   private _fn: Function;
 
   readonly time: Time;
-  readonly progress: Progress;
+  readonly output: Output;
 
-  constructor(fn: Param = "linear", t1 = 0, t2 = 1, p1 = 0, p2 = 1){
-    this._fn = typeof fn === "string" ? Library[fn] : fn;
+  constructor(param: Param, ...args: Args){
+    this._fn = param;
+
+    let [t1, t2, o1, o2] = args;
     this.time = new Time(t1, t2);
-    this.progress = new Progress(p1, p2);
+    this.output = new Output(o1, o2);
   };
 
   get fn(): Function{
-    return x => this.at(x);
+    return t => this.at(t);
   };
 
   /**
-   * Returns the progress at the specified time 
+   * Returns the output at the specified time 
    * @param t 
-   * @returns progress 
+   * @returns output 
    */
   at(t: number){
     let x = this.normalise((t-this.time.start)/this.time.duration), y = this._fn(x);
-    return this.progress.start+y*this.progress.delta;
+    return this.output.start+y*this.output.delta;
+  };
+
+  /**
+   * Returns the difference of the outputs at the specified times 
+   * @param t1 
+   * @param t2 
+   * @returns 
+   */
+  delta(t1: number, t2: number){
+    return this.at(t2)-this.at(t1);
   };
 
   /**
@@ -35,11 +46,12 @@ export default class Easing{
    * @param n 
    */
   keyframes(n: number){
-    let final: number[] = [];
-    for(let i = 0; i < n; i++){
+    let final: number[] = [this.at(this.time.start)];
+    for(let i = 1; i < n-1; i++){
       let x = this.time.start+this.time.duration/(n-1)*i;
       final.push(this.at(x));
     }
+    final.push(this.at(this.time.end));
     return final;
   };
 
@@ -47,9 +59,9 @@ export default class Easing{
    * Inverts the easing 
    */
   invert(){
-    let {start, end} = this.progress;
-    this.progress.end = start;
-    this.progress.start = end;
+    let {start, end} = this.output;
+    this.output.end = start;
+    this.output.start = end;
   };
 
   /**
@@ -57,7 +69,7 @@ export default class Easing{
    * @returns easing 
    */
   clone(){
-    return new Easing(this._fn, ...this.time.range, ...this.progress.range);
+    return new Easing(this._fn, ...this.time.range, ...this.output.range);
   };
 
   /**

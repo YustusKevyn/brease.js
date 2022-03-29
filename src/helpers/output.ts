@@ -1,10 +1,10 @@
-import type { Range } from "./types";
+import type { Range } from "../types";
 
-export default class Time{
+export default class Output{
   private _end: number;
   private _start: number;
 
-  constructor(start: number, end: number){
+  constructor(start: number = 0, end: number = 1){
     this._end = end;
     this._start = start;
   };
@@ -23,10 +23,10 @@ export default class Time{
     this._end = value;
   };
 
-  get duration(){
+  get delta(){
     return this._end-this._start;
   };
-  set duration(value: number){
+  set delta(value: number){
     this._end = this._start+value;
   };
 

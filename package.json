@@ -1,6 +1,6 @@
 {
   "name": "brease.js",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "🍃 Adjustable easing functions",
   "author": {
     "name": "Kevynson"
@@ -28,7 +28,8 @@
   "scripts": {
     "build": "npm run build-esm && npm run build-cjs",
     "build-esm": "tsc -p tsconfig.esm.json",
-    "build-cjs": "tsc -p tsconfig.cjs.json"
+    "build-cjs": "tsc -p tsconfig.cjs.json",
+    "publish": "npm run dist && npm publish"
   },
   "devDependencies": {
     "typescript": "^4.6.2"

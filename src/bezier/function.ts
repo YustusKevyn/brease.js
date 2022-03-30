@@ -1,18 +1,9 @@
-import type { Args } from "../types";
-
-import Easing from "../easing";
-
-export default class Bezier extends Easing{
-  constructor(x1: number, y1: number, x2: number, y2: number, ...agrs: Args){
-    if(!(0 <= x1 && x1 <= 1 && 0 <= x2 && x2 <= 1)) throw new Error("invalid points");
-    super(bezier(x1, y1, x1, y2), ...agrs);
-  };
-};
-
 /**
- * Function 
  * https://github.com/gre/bezier-easing/blob/master/src/index.js 
  */
+
+import type { Function } from "../types";
+
 const kSplineTableSize = 11;
 const kSampleStepSize = 1/(kSplineTableSize-1);
 
@@ -44,7 +35,7 @@ function iterate(x: number, g: number, x1: number, x2: number){
   return g;
 };
 
-export function bezier(x1: number, y1: number, x2: number, y2: number){
+export default function bezier(x1: number, y1: number, x2: number, y2: number): Function{
   let s = new Float32Array(kSplineTableSize);
 
   if(x1 !== y1 || x2 !== y2){
@@ -70,12 +61,9 @@ export function bezier(x1: number, y1: number, x2: number, y2: number){
     return subdivide(x, intervalStart, intervalStart + kSampleStepSize, x1, x2);
   };
 
-  return (x: number) => {
+  return x => {
     if(x1 === y1 && x2 === y2) return x;
     if(x === 0 || x === 1) return x;
     return calculate(getTForX(x), y1, y2);
   };
 };
-
-let easing = new Bezier(0.83, 0, 0.17, 1, /**/ 0, 1, 0, 100);
-for(let v of easing.keyframes(50)) console.log(" ".repeat(v+20)+"*")

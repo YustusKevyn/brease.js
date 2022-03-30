@@ -1,10 +1,12 @@
 import type { Args, Function } from "../types";
+import type { Direction } from "../penner/utils";
 
 import Easing from "../easing";
-import { toInOut, toOut, toOutIn } from "../util";
+import elastic from "./function";
+import { toInOut, toOut, toOutIn } from "../penner/utils";
 
 export default class Elastic extends Easing{
-  constructor(amplitude = 1, period = 0.3, direction: "in" | "out" | "inOut" | "outIn" = "in", ...args: Args){
+  constructor(amplitude = 1, period = 0.3, direction: Direction = "in", ...args: Args){
     if(amplitude < 1) amplitude = 1;
 
     let fn: Function = elastic(amplitude, period);
@@ -14,13 +16,5 @@ export default class Elastic extends Easing{
     else if(direction !== "in") throw new Error("invalid direction");
 
     super(fn, ...args);
-  }
-};
-
-/**
- * Function
- */
-export function elastic(a: number, p: number): Function{
-  let s = p/(Math.PI*2)*Math.asin(1/a);
-  return t => t === 1 || t === 0 ? t : -a*2**(10*(t-1)) * Math.sin((t-1-s)*(2*Math.PI)/p);
+  };
 };

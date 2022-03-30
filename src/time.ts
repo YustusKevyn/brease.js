@@ -1,4 +1,4 @@
-import type { Range } from "../types";
+import type { Range } from "./types";
 
 export default class Time{
   private _end: number;

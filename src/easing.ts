@@ -1,7 +1,8 @@
 import type { Args, Function, Param } from "./types";
 
-import Time from "./helpers/time";
-import Output from "./helpers/output";
+import Time from "./time";
+import Output from "./output";
+import libary from "./library";
 
 export default class Easing{
   private _fn: Function;
@@ -9,10 +10,18 @@ export default class Easing{
   readonly time: Time;
   readonly output: Output;
 
-  constructor(param: Param, ...args: Args){
-    this._fn = param;
+  constructor(param: Param = "linear", ...args: Args){
+    let fn: Function;
+
+    if(typeof param === "string"){
+      if(!(param in libary)) throw new Error("unknown easing");
+      fn = libary[param];
+    }
+    else if(typeof param === "function") fn = param;
+    else throw new Error("invalid easing");
 
     let [t1, t2, o1, o2] = args;
+    this._fn = fn;
     this.time = new Time(t1, t2);
     this.output = new Output(o1, o2);
   };

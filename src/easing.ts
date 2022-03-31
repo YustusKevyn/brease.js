@@ -10,14 +10,14 @@ export default class Easing{
   readonly time: Time;
   readonly output: Output;
 
-  constructor(param: Param = "linear", ...args: Args){
+  constructor(easing: Param = "linear", ...args: Args){
     let fn: Function;
 
-    if(typeof param === "string"){
-      if(!(param in libary)) throw new Error("unknown easing");
-      fn = libary[param];
+    if(typeof easing === "string"){
+      if(!(easing in libary)) throw new Error("unknown easing");
+      fn = libary[easing];
     }
-    else if(typeof param === "function") fn = param;
+    else if(typeof easing === "function") fn = easing;
     else throw new Error("invalid easing");
 
     let [t1, t2, o1, o2] = args;

@@ -8,6 +8,7 @@ import { toInOut, toOut, toOutIn } from "../penner/utils";
 export default class Elastic extends Easing{
   constructor(amplitude = 1, period = 0.3, direction: Direction = "in", ...args: Args){
     if(amplitude < 1) amplitude = 1;
+    if(period <= 0) period = 0.3;
 
     let fn: Function = elastic(amplitude, period);
     if(direction === "out") fn = toOut(fn);

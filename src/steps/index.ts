@@ -9,6 +9,6 @@ export type Direction = (typeof Directions)[number];
 export default class Steps extends Easing{
   constructor(number: number, direction: Direction = "end", ...args: Args){
     if(!Directions.includes(direction)) throw new Error("unknown direction");
-    super(steps(number, direction), ...args);
+    super(steps(Math.max(Math.round(number), 1), direction), ...args);
   };
 };

@@ -1,16 +1,18 @@
 {
   "name": "brease.js",
   "version": "1.1.0",
-  "description": "🍃 Adjustable easing functions",
+  "description": "🍃 All-in-one adjustable easing functions library",
   "author": {
     "name": "Kevynson"
   },
   "keywords": [
     "easing",
-    "easings",
-    "bezier",
-    "cubic-bezier",
     "penner",
+    "cubic-bezier-easing",
+    "step-easing",
+    "elastic-easing",
+    "staircase-easing",
+    "easing-functions",
     "penner-easing-functions"
   ],
   "homepage": "https://github.com/YustusKevyn/brease.js",

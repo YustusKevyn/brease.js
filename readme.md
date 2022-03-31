@@ -4,12 +4,13 @@
   <p><b>All-in-one adjustable easing functions library</b></p>
   <p>
     • Penner's easing functions<br/>
+    • Custom cubic Bézier curve functions<br/>
     • Custom elastic curve functions<br/>
     • Custom step/staircase functions<br/>
-    • Custom cubic Bézier curve functions<br/>
+    • Custom back curve functions<br/>
     <br/>
-    • In, out, in-out and out-in variants<br/>
     • Adjustable input and output range<br/>
+    • In, out, in-out and out-in variants<br/>
     • Supports IntelliSense and TypeScript<br/>
     • No dependencies, no framework cruft<br/>
   </p>
@@ -32,12 +33,12 @@ $ npm i brease.js
 
 ESM:
 ```ts
-import { Easing, Penner, Bezier, Steps, Elastic } from "brease.js";
+import { Easing, Penner, Bezier, Steps, Elastic, Back } from "brease.js";
 ```
 
 CJS:
 ```ts
-const { Easing, Penner, Bezier, Steps, Elastic } = require("brease.js");
+const { Easing, Penner, Bezier, Steps, Elastic, Back } = require("brease.js");
 ```
 
 ### Example 
@@ -61,11 +62,11 @@ let tick = () => {
 tick();
 ```
 
-# API 
+## API 
 
-## `Easing` 
+### `Easing` 
 
-### Constructor 
+#### Constructor 
 
 ```ts
 new Easing(easing?, t1?, t2?, o1?, o2?)
@@ -88,7 +89,7 @@ new Easing(easing?, t1?, t2?, o1?, o2?)
   <dd>End of the output range, e.g. ending value. Indicates the easing's change in value in combination with <code>o1</code>. Default is <code>1</code>.</dd>
 </dl>
 
-### Properties 
+#### Properties 
 
 <dl>
   <dt><code>fn: (t: number) => number</code></dt>
@@ -117,7 +118,7 @@ new Easing(easing?, t1?, t2?, o1?, o2?)
   </dd>
 </dl>
 
-### Methods 
+#### Methods 
 
 <dl>
   <dt><code>at(t: number): number</code></dt>
@@ -133,14 +134,14 @@ new Easing(easing?, t1?, t2?, o1?, o2?)
   <dd>Returns a new instance with the same easing function and input and output range.</dd>
 </dl>
 
-### Presets 
+#### Presets 
 
 - `"linear"`
 - `"ease"`, `"easeIn"`, `"easeOut"` and `"easeInOut"`
 - `"stepStart"` and `"stepEnd"`
 - All [Penner functions](#functions), prefixed with "ease" (e.g. `"outQuint"` → `"easeOutQuint"`)
 
-### Example 
+#### Example 
 
 ```ts
 let easing = new Easing("easeOutQuint", 0, 100, -200, 200);
@@ -160,11 +161,11 @@ easing.invert();
 // → output ranges from 0 to -400 
 ```
 
-## `Penner` 
+### `Penner` 
 
 This class can be used to quickly create an easing using one of Robert Penner's functions. All functions work identically to Penner's. Extends `Easing`.
 
-### Constructor 
+#### Constructor 
 
 ```ts
 new Penner(name, ...args?)
@@ -178,7 +179,7 @@ new Penner(name, ...args?)
   <dd>The same arguments as <code>Easing</code>.</dd>
 </dl>
 
-### Functions 
+#### Functions 
 
 Each of Penner's functions has an in, out, in-out and out-in variant. If you want to learn more about these functions, visit [easings.net ↗](https://easings.net/).
 
@@ -194,11 +195,11 @@ Each of Penner's functions has an in, out, in-out and out-in variant. If you wan
 | ***Back***    | inBack    | outBack    | inOutBack    | outInBack    |
 | ***Elastic*** | inElastic | outElastic | inOutElastic | outInElastic |
 
-## `Bezier` 
+### `Bezier` 
 
 This class can be used to create a custom cubic Bézier curve easing. You can use a [Bézier curve generator ↗](http://cubic-bezier.com/) to visualise the curve and generate the corresponding parameters. Extends `Easing`.
 
-### Constructor 
+#### Constructor 
 
 ```ts
 new Bezier(x1, y1, x2, y2, ...args?)
@@ -221,11 +222,11 @@ new Bezier(x1, y1, x2, y2, ...args?)
   <dd>The same arguments as <code>Easing</code>.</dd>
 </dl>
 
-## `Steps` 
+### `Steps` 
 
 This class can be used to define a step function. Divides the output range into equidistant steps. Visit the [MDN docs ↗](https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function#the_steps_class_of_easing_functions) for more information. Extends `Easing`.
 
-### Constructor 
+#### Constructor 
 
 ```ts
 new Steps(number, direction?, ...args?)
@@ -251,11 +252,11 @@ new Steps(number, direction?, ...args?)
   <dd>The same arguments as <code>Easing</code>.</dd>
 </dl>
 
-## `Elastic` 
+### `Elastic` 
 
 This class can be used to define a custom elastic curve easing. Extends `Easing`. 
 
-### Constructor 
+#### Constructor 
 
 ```ts
 new Elastic(amplitude?, period?, direction?, ...args?)
@@ -267,6 +268,27 @@ new Elastic(amplitude?, period?, direction?, ...args?)
 
   <dt><code>period?: number</code></dt>
   <dd>Period, i.e. how many times the curve goes back and forth. The smaller the number, the more times the curve goes back and forth. Must be larger than 0. Default is <code>0.3</code>.</dd>
+
+  <dt><code>direcrion?: string</code></dt>
+  <dd>Direction of the easing function. Must be one of <code>"in"</code>, <code>"out"</code>, <code>"inOut"</code> and <code>"outIn"</code>. Default is <code>"in"</code>.</dd>
+
+  <dt><code>...args?</code></dt>
+  <dd>The same arguments as <code>Easing</code>.</dd>
+</dl>
+
+### `Back` 
+
+This class can be used to define a custom back curve easing. Extends `Easing`. 
+
+#### Constructor 
+
+```ts
+new Back(overshoot?, direction?, ...args?)
+```
+
+<dl>
+  <dt><code>overshoot?: number</code></dt>
+  <dd>Overshoot of the curve. Must be at least 1. Default is <code>1.5</code>.</dd>
 
   <dt><code>direcrion?: string</code></dt>
   <dd>Direction of the easing function. Must be one of <code>"in"</code>, <code>"out"</code>, <code>"inOut"</code> and <code>"outIn"</code>. Default is <code>"in"</code>.</dd>

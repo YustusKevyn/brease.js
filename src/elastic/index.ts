@@ -17,5 +17,5 @@ export default class Elastic extends Easing{
     else if(direction !== "in") throw new Error("invalid direction");
 
     super(fn, ...args);
-  };
-};
+  }
+}

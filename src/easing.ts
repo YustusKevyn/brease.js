@@ -24,11 +24,11 @@ export default class Easing{
     this._fn = fn;
     this.time = new Time(t1, t2);
     this.output = new Output(o1, o2);
-  };
+  }
 
   get fn(): Function{
     return t => this.at(t);
-  };
+  }
 
   /**
    * Returns the output at the specified time 
@@ -38,7 +38,7 @@ export default class Easing{
   at(t: number){
     let x = this.normalise((t-this.time.start)/this.time.duration), y = this._fn(x);
     return this.output.start+y*this.output.delta;
-  };
+  }
 
   /**
    * Returns the difference of the outputs at the specified times 
@@ -48,7 +48,7 @@ export default class Easing{
    */
   delta(t1: number, t2: number){
     return this.at(t2)-this.at(t1);
-  };
+  }
 
   /**
    * Returns an array of n keyframes 
@@ -62,7 +62,7 @@ export default class Easing{
     }
     final.push(this.at(this.time.end));
     return final;
-  };
+  }
 
   /**
    * Inverts the easing 
@@ -71,7 +71,7 @@ export default class Easing{
     let {start, end} = this.output;
     this.output.end = start;
     this.output.start = end;
-  };
+  }
 
   /**
    * Clones the easing 
@@ -79,7 +79,7 @@ export default class Easing{
    */
   clone(){
     return new Easing(this._fn, ...this.time.range, ...this.output.range);
-  };
+  }
 
   /**
    * Normalises the specified time 
@@ -88,5 +88,5 @@ export default class Easing{
    */
   private normalise(t: number){
     return t < 0 ? 0 : t > 1 ? 1 : t;
-  };
-};
+  }
+}

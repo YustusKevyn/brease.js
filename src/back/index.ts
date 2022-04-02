@@ -14,5 +14,5 @@ export default class Back extends Easing{
     else if(direction !== "in") throw new Error("invalid direction");
 
     super(fn, ...args);
-  };
-};
+  }
+}

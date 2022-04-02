@@ -8,5 +8,5 @@ export default class Penner extends Easing{
   constructor(name: `${Direction}${Name}`, ...args: Args){
     if(!(name in library)) throw new Error("unknown function");
     super(library[name], ...args);
-  };
-};
+  }
+}

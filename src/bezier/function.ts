@@ -23,7 +23,7 @@ function subdivide(x: number, a: number, b: number, x1: number, x2: number) {
     else a = currentT;
   } while(Math.abs(currentX) > 0.0000001 && ++i < 10);
   return currentT;
-};
+}
 
 function iterate(x: number, g: number, x1: number, x2: number){
   for(let i = 0; i < 4; ++i){
@@ -33,7 +33,7 @@ function iterate(x: number, g: number, x1: number, x2: number){
     g -= currentX/currentSlope;
   }
   return g;
-};
+}
 
 export default function bezier(x1: number, y1: number, x2: number, y2: number): Function{
   let s = new Float32Array(kSplineTableSize);
@@ -65,5 +65,5 @@ export default function bezier(x1: number, y1: number, x2: number, y2: number): 
     if(x1 === y1 && x2 === y2) return x;
     if(x === 0 || x === 1) return x;
     return calculate(getTForX(x), y1, y2);
-  };
-};
+  }
+}

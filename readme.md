@@ -51,7 +51,7 @@ import { Penner } from "brease.js";
 let duration = 1000,
 start = performance.now(),
 element = document.getElementById("circle"),
-easing = new Penner("outQuint", 0, duration, -100, 100);
+easing = new Penner("outQuint", -100, 100, 0, duration);
 
 let tick = () => {
   let time = performance.now();
@@ -69,24 +69,24 @@ tick();
 #### Constructor 
 
 ```ts
-new Easing(easing?, t1?, t2?, o1?, o2?)
+new Easing(easing?, o1?, o2?, t1?, t2?)
 ```
 
 <dl>
   <dt><code>easing?: string | ((t: number) => number)</code></dt>
   <dd>The easing function to use. Can be a custom function or the name of a preset. A list of all supported presets can be found below. Default is <code>"linear"</code>.</dd>
 
-  <dt><code>t1?: number</code></dt>
-  <dd>Start of the input range, e.g. start time. Default is <code>0</code>.</dd>
-
-  <dt><code>t2?: number</code></dt>
-  <dd>End of the input range, e.g. end time. Indicates the easing's duration in combination with <code>t1</code>. Default is <code>1</code>.</dd>
-
   <dt><code>o1?: number</code></dt>
   <dd>Start of the output range, e.g. beginning value. Default is <code>0</code>.</dd>
 
   <dt><code>o1?: number</code></dt>
   <dd>End of the output range, e.g. ending value. Indicates the easing's change in value in combination with <code>o1</code>. Default is <code>1</code>.</dd>
+
+  <dt><code>t1?: number</code></dt>
+  <dd>Start of the input range, e.g. start time. Default is <code>0</code>.</dd>
+
+  <dt><code>t2?: number</code></dt>
+  <dd>End of the input range, e.g. end time. Indicates the easing's duration in combination with <code>t1</code>. Default is <code>1</code>.</dd>
 </dl>
 
 #### Properties 

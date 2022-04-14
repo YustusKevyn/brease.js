@@ -4,7 +4,7 @@ import Time from "./time";
 import Output from "./output";
 import libary from "./library";
 
-export default class Easing{
+export default class Easing {
   private _fn: Function;
 
   readonly time: Time;
@@ -20,13 +20,13 @@ export default class Easing{
     else if(typeof easing === "function") fn = easing;
     else throw new Error("invalid easing");
 
-    let [t1, t2, o1, o2] = args;
+    let [o1, o2, t1, t2] = args;
     this._fn = fn;
     this.time = new Time(t1, t2);
     this.output = new Output(o1, o2);
   }
 
-  get fn(): Function{
+  get fn(): Function {
     return t => this.at(t);
   }
 

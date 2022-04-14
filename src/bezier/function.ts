@@ -35,7 +35,7 @@ function iterate(x: number, g: number, x1: number, x2: number){
   return g;
 }
 
-export default function bezier(x1: number, y1: number, x2: number, y2: number): Function{
+export default function bezier(x1: number, y1: number, x2: number, y2: number): Function {
   let s = new Float32Array(kSplineTableSize);
 
   if(x1 !== y1 || x2 !== y2){

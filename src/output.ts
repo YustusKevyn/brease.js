@@ -1,6 +1,6 @@
 import type { Range } from "./types";
 
-export default class Output{
+export default class Output {
   private _end: number;
   private _start: number;
 
@@ -30,7 +30,7 @@ export default class Output{
     this._end = this._start+value;
   }
 
-  get range(): Range{
+  get range(): Range {
     return [this._start, this._end];
   }
   set range(value: Range){

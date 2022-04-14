@@ -1,6 +1,6 @@
 import type { Range } from "./types";
 
-export default class Time{
+export default class Time {
   private _end: number;
   private _start: number;
 
@@ -30,7 +30,7 @@ export default class Time{
     this._end = this._start+value;
   }
 
-  get range(): Range{
+  get range(): Range {
     return [this._start, this._end];
   }
   set range(value: Range){

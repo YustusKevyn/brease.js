@@ -5,7 +5,7 @@ import Easing from "../easing";
 import elastic from "./function";
 import { toInOut, toOut, toOutIn } from "../penner/utils";
 
-export default class Elastic extends Easing{
+export default class Elastic extends Easing {
   constructor(amplitude = 1, period = 0.3, direction: Direction = "in", ...args: Args){
     if(amplitude < 1) amplitude = 1;
     if(period <= 0) period = 0.3;

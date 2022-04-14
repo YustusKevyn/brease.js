@@ -5,7 +5,7 @@ import back from "./function";
 import Easing from "../easing";
 import { toInOut, toOut, toOutIn } from "../penner/utils";
 
-export default class Back extends Easing{
+export default class Back extends Easing {
   constructor(overshoot = 1.5, direction: Direction = "in", ...args: Args){
     let fn: Function = back(overshoot);
     if(direction === "out") fn = toOut(fn);

@@ -6,6 +6,6 @@
     "exactOptionalPropertyTypes": true
   },
   "include": [
-    "src/**/*"
+    "src"
   ]
 }

@@ -1,2 +1,4 @@
-export * as default from "./exports";
 export * from "./exports";
+
+import * as Brease from "./exports";
+export default Brease;

@@ -1,11 +1,16 @@
 import type { Arguments, Direction } from "../types";
 
-import { transform } from "../function";
-import { BaseEasing } from "./base";
+import { Easing } from "./easing";
+import { transform } from "../util/function";
 
-export class PolynomialEasing extends BaseEasing {
-  constructor(degree: number = 2, direction: Direction = "in", ...args: Arguments){
-    super(PolynomialEasing.fn(degree, direction), ...args);
+export interface PolynomialEasingConfiguration {
+  degree?: number | undefined;
+  direction?: Direction | undefined;
+}
+
+export class PolynomialEasing extends Easing {
+  constructor(configuration: PolynomialEasingConfiguration, ...args: Arguments){
+    super(PolynomialEasing.fn(configuration.degree, configuration.direction), ...args);
   }
 
   static fn(degree: number = 2, direction: Direction = "in"){

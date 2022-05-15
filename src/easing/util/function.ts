@@ -1,4 +1,4 @@
-import type { Direction, Function } from "./types";
+import type { Direction, Function } from "../types";
 
 export function transform(fn: Function, dir: Direction): Function {
   if(dir === "out") return t => 1-fn(1-t);

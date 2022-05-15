@@ -1,11 +1,16 @@
 import type { Arguments, Direction } from "../types";
 
-import { transform } from "../function";
-import { BaseEasing } from "./base";
+import { Easing } from "./easing";
+import { transform } from "../util/function";
 
-export class CircularEasing extends BaseEasing {
-  constructor(degree: number = 2, direction: Direction = "in", ...args: Arguments){
-    super(CircularEasing.fn(degree, direction), ...args);
+export interface CircularEasingConfiguration {
+  degree?: number | undefined;
+  direction?: Direction | undefined;
+}
+
+export class CircularEasing extends Easing {
+  constructor(configuration: CircularEasingConfiguration, ...args: Arguments){
+    super(CircularEasing.fn(configuration.degree, configuration.direction), ...args);
   }
 
   static fn(degree: number = 2, direction: Direction = "in"){

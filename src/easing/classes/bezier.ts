@@ -1,11 +1,18 @@
 import type { Arguments, Function } from "../types";
 
-import { limit } from "../../util/math";
-import { BaseEasing } from "./base";
+import { limit } from "../util/math";
+import { Easing } from "./easing";
 
-export class BezierEasing extends BaseEasing {
-  constructor(x1: number, y1: number, x2: number, y2: number, ...args: Arguments){
-    super(BezierEasing.fn(x1, y1, x2, y2), ...args);
+export interface BezierEasingConfiguration {
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+}
+
+export class BezierEasing extends Easing {
+  constructor(configuration: BezierEasingConfiguration, ...args: Arguments){
+    super(BezierEasing.fn(configuration.x1, configuration.y1, configuration.x2, configuration.y2), ...args);
   }
 
   static fn(x1: number, y1: number, x2: number, y2: number): Function {

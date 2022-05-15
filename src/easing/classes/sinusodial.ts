@@ -1,11 +1,16 @@
 import type { Arguments, Direction } from "../types";
 
-import { transform } from "../function";
-import { BaseEasing } from "./base";
+import { Easing } from "./easing";
+import { transform } from "../util/function";
 
-export class SinusodialEasing extends BaseEasing {
-  constructor(degree: number = 1, direction: Direction = "in", ...args: Arguments){
-    super(SinusodialEasing.fn(degree, direction), ...args);
+export interface SinusodialEasingConfiguration {
+  degree?: number | undefined;
+  direction?: Direction | undefined;
+}
+
+export class SinusodialEasing extends Easing {
+  constructor(configuration: SinusodialEasingConfiguration, ...args: Arguments){
+    super(SinusodialEasing.fn(configuration.degree, configuration.direction), ...args);
   }
 
   static fn(degree: number = 1, direction: Direction = "in"){

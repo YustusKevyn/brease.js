@@ -3,7 +3,7 @@ import Brease from "./src";
 console.clear();
 console.log(new Date().getTime());
 
-// g(new Brease.BounceEasing(5, 1, "in"));
+// console.log(Brease.parseEasing("polynomial(1)"));
 
 function g(easing: Brease.Easing){
   easing.output.range = [0, 80];

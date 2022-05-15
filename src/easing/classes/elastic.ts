@@ -1,11 +1,17 @@
 import type { Arguments, Direction } from "../types";
 
-import { transform } from "../function";
-import { BaseEasing } from "./base";
+import { Easing } from "./easing";
+import { transform } from "../util/function";
 
-export class ElasticEasing extends BaseEasing {
-  constructor(amplitude: number = 1, period: number = 0.3, direction: Direction = "in", ...args: Arguments){
-    super(ElasticEasing.fn(amplitude, period, direction), ...args);
+export interface ElasticEasingConfiguration {
+  period?: number | undefined;
+  amplitude?: number | undefined;
+  direction?: Direction | undefined;
+}
+
+export class ElasticEasing extends Easing {
+  constructor(configuration: ElasticEasingConfiguration, ...args: Arguments){
+    super(ElasticEasing.fn(configuration.amplitude, configuration.period, configuration.direction), ...args);
   }
 
   static fn(amplitude: number = 1, period: number = 0.3, direction: Direction = "in"){

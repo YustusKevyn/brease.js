@@ -1,0 +1,15 @@
+{
+  "name": "brease.js",
+  "version": "2.0.0",
+  "description": "🍃 All-in-one adjustable easing functions library",
+  "author": "Yanis Morgenegg",
+  "license": "MIT",
+  "homepage": "https://github.com/YustusKevyn/brease.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YustusKevyn/brease.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YustusKevyn/brease.js/issues"
+  }
+}

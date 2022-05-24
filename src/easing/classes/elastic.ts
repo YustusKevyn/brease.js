@@ -1,27 +1,64 @@
-import type { Arguments, Direction } from "../types";
+import type { Direction, BaseConfiguration, Function } from "../types";
 
 import { Easing } from "./easing";
-import { transform } from "../util/function";
+import { lowerLimit } from "../../util/math";
+import { transform } from "../../util/function";
 
-export interface ElasticEasingConfiguration {
+export interface ElasticEasingConfiguration extends BaseConfiguration {
   period?: number | undefined;
   amplitude?: number | undefined;
   direction?: Direction | undefined;
 }
 
 export class ElasticEasing extends Easing {
-  constructor(configuration: ElasticEasingConfiguration, ...args: Arguments){
-    super(ElasticEasing.fn(configuration.amplitude, configuration.period, configuration.direction), ...args);
+  private _period: number = 0.3;
+  private _amplitude: number = 1;
+  private _direction: Direction = "in";
+
+  constructor(config?: ElasticEasingConfiguration){
+    super(x => this.calculate(x), config?.start, config?.end, config?.from, config?.to);
+    if(config?.period) this.period = config.period;
+    if(config?.amplitude) this.amplitude = config.amplitude;
+    if(config?.direction) this.direction = config.direction;
   }
 
-  static fn(amplitude: number = 1, period: number = 0.3, direction: Direction = "in"){
-    if(amplitude < 1) amplitude = 1;
-    if(period < 0.1) period = 0.1;
+  get period(){
+    return this._period;
+  }
+  set period(value: number){
+    this._period = lowerLimit(value, 0.1);
+  }
 
-    let s = period/(Math.PI*2)*Math.asin(1/amplitude);
-    return transform(t => {
-      if(t === 1 || t === 0) return t;
-      return -amplitude*2**(10*(t-1)) * Math.sin((t-1-s)*(2*Math.PI)/period);
-    }, direction);
+  get amplitude(){
+    return this._amplitude;
+  }
+  set amplitude(value: number){
+    this._amplitude = lowerLimit(value, 1);
+  }
+
+  get direction(){
+    return this._direction;
+  }
+  set direction(value: Direction){
+    this._direction = value;
+  }
+
+  clone(){
+    return new ElasticEasing({
+      period: this._period,
+      amplitude: this._amplitude,
+      direction: this._direction,
+      start: this.time.start,
+      end: this.time.end,
+      from: this.output.from,
+      to: this.output.to
+    });
+  }
+
+  private calculate(x: number){
+    return transform(a => {
+      let s = this._period/(Math.PI*2)*Math.asin(1/this._amplitude);
+      return -this._amplitude*2**(10*(a-1)) * Math.sin((a-1-s)*(2*Math.PI)/this._period);
+    }, this._direction, x);
   }
 }

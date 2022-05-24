@@ -1,39 +1,46 @@
-import type { Arguments, Function } from "../types";
+import type { Function } from "../types";
 
 import { Time } from "../../util/time";
 import { Output } from "../../util/output";
 
 export class Easing {
-  readonly fn: Function;
-  readonly time: Time;
-  readonly output: Output;
+  private _fn: Function;
+  private _time: Time;
+  private _output: Output;
 
-  constructor(fn: Function, ...args: Arguments){
-    let [from, to, start, end] = args;
-    this.fn = fn;
-    this.time = new Time(start, end);
-    this.output = new Output(from, to);
+  constructor(fn: Function, from?: number, to?: number, start?: number, end?: number){
+    this._fn = fn;
+    this._time = new Time(start, end);
+    this._output = new Output(from, to);
+  }
+
+  get time(){
+    return this._time;
+  }
+
+  get output(){
+    return this._output;
   }
 
   at(t: number){
-    return this.output.toAbsolute(this.fn(this.time.toRelative(t)));
+    return this._output.toAbsolute(this._fn(this._time.toRelative(t)));
   }
 
   clone(){
-    return new Easing(this.fn, this.output.from, this.output.to, this.time.start, this.time.end);
+    return new Easing(this._fn, this._output.from, this._output.to, this._time.start, this._time.end);
   }
 
   delta(t1: number, t2: number){
-    return this.at(t2)-this.at(t1);
+    return Math.abs(this.at(t2)-this.at(t1));
   }
 
   keyframes(n: number){
-    let final: number[] = [this.at(this.time.start)];
+    let final: number[] = [this.at(this._time.start)];
     for(let i = 1; i < n-1; i++){
-      let x = this.time.start+this.time.duration/(n-1)*i;
+      let x = this._time.start+this._time.duration/(n-1)*i;
       final.push(this.at(x));
     }
-    final.push(this.at(this.time.end));
+    final.push(this.at(this._time.end));
     return final;
   }
 }

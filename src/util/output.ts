@@ -1,4 +1,4 @@
-import { limit } from "../easing/util/math";
+import { limit } from "./math";
 
 type Range = [from: number, to: number];
 

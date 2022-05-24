@@ -16,7 +16,7 @@ export class ElasticEasing extends Easing {
   private _direction: Direction = "in";
 
   constructor(config?: ElasticEasingConfiguration){
-    super(x => this.calculate(x), config?.start, config?.end, config?.from, config?.to);
+    super(config?.from, config?.to, config?.start, config?.end);
     if(config?.period) this.period = config.period;
     if(config?.amplitude) this.amplitude = config.amplitude;
     if(config?.direction) this.direction = config.direction;
@@ -48,14 +48,14 @@ export class ElasticEasing extends Easing {
       period: this._period,
       amplitude: this._amplitude,
       direction: this._direction,
-      start: this.time.start,
-      end: this.time.end,
       from: this.output.from,
-      to: this.output.to
+      to: this.output.to,
+      start: this.time.start,
+      end: this.time.end
     });
   }
 
-  private calculate(x: number){
+  protected calculate(x: number){
     return transform(a => {
       let s = this._period/(Math.PI*2)*Math.asin(1/this._amplitude);
       return -this._amplitude*2**(10*(a-1)) * Math.sin((a-1-s)*(2*Math.PI)/this._period);

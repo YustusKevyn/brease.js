@@ -38,7 +38,7 @@ export class BezierEasing extends Easing {
   private _subdivisionIterations = 10;
 
   constructor(config?: BezierEasingConfiguration){
-    super(x => this.calculate(x), config?.from, config?.to, config?.start, config?.end);
+    super(config?.from, config?.to, config?.start, config?.end);
     if(config?.x1) this.x1 = config.x1;
     if(config?.y1) this.y1 = config.y1;
     if(config?.x2) this.x2 = config.x2;
@@ -72,6 +72,19 @@ export class BezierEasing extends Easing {
   }
   set y2(value: number){
     this._y2 = value;
+  }
+
+  clone(){
+    return new BezierEasing({
+      x1: this._x1,
+      y1: this._y1,
+      x2: this._x2,
+      y2: this._y2,
+      from: this.output.from,
+      to: this.output.to,
+      start: this.time.start,
+      end: this.time.end
+    });
   }
 
   private bezier(u: number, a1: number, a2: number){
@@ -114,7 +127,7 @@ export class BezierEasing extends Easing {
     return u;
   }
 
-  private calculate(x: number){
+  protected calculate(x: number){
     if(x === 0 || x === 1) return x;
     if(this._x1 === this._y1 && this._x2 === this._y2) return x;
     if(this._x1 !== this._sampleCoords[0] || this._x2 !== this._sampleCoords[1]) this.sample();

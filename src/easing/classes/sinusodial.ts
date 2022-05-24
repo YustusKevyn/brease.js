@@ -14,7 +14,7 @@ export class SinusodialEasing extends Easing {
   private _direction: Direction = "in";
 
   constructor(config?: SinusodialEasingConfiguration){
-    super(x => this.calculate(x), config?.start, config?.end, config?.from, config?.to);
+    super(config?.from, config?.to, config?.start, config?.end);
     if(config?.degree) this.degree = config.degree;
     if(config?.direction) this.direction = config.direction;
   }
@@ -37,14 +37,14 @@ export class SinusodialEasing extends Easing {
     return new SinusodialEasing({
       degree: this._degree,
       direction: this._direction,
-      start: this.time.start,
-      end: this.time.end,
       from: this.output.from,
-      to: this.output.to
+      to: this.output.to,
+      start: this.time.start,
+      end: this.time.end
     });
   }
 
-  private calculate(x: number){
+  protected calculate(x: number){
     return transform(a => 1-Math.cos(a*Math.PI/2)**(1/this._degree), this._direction, x);
   }
 }

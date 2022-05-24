@@ -4,12 +4,10 @@ import { Time } from "../../util/time";
 import { Output } from "../../util/output";
 
 export class Easing {
-  private _fn: Function;
-  private _time: Time;
-  private _output: Output;
+  protected _time: Time;
+  protected _output: Output;
 
-  constructor(fn: Function, from?: number, to?: number, start?: number, end?: number){
-    this._fn = fn;
+  constructor(from?: number, to?: number, start?: number, end?: number){
     this._time = new Time(start, end);
     this._output = new Output(from, to);
   }
@@ -23,11 +21,11 @@ export class Easing {
   }
 
   at(t: number){
-    return this._output.toAbsolute(this._fn(this._time.toRelative(t)));
+    return this._output.toAbsolute(this.calculate(this._time.toRelative(t)));
   }
 
   clone(){
-    return new Easing(this._fn, this._output.from, this._output.to, this._time.start, this._time.end);
+    return new Easing(this._output.from, this._output.to, this._time.start, this._time.end);
   }
 
   delta(t1: number, t2: number){
@@ -42,5 +40,9 @@ export class Easing {
     }
     final.push(this.at(this._time.end));
     return final;
+  }
+
+  protected calculate(x: number){
+    return x;
   }
 }

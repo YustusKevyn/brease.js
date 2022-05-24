@@ -15,7 +15,7 @@ export class StepsEasing extends Easing {
   private _continuity: StepsEasingContinuity = "end";
 
   constructor(config?: StepsEasingConfiguration){
-    super(x => this.calculate(x), config?.start, config?.end, config?.from, config?.to);
+    super(config?.from, config?.to, config?.start, config?.end);
     if(config?.steps) this.steps = config.steps;
     if(config?.continuity) this.continuity = config.continuity;
   }
@@ -38,14 +38,14 @@ export class StepsEasing extends Easing {
     return new StepsEasing({
       steps: this._steps,
       continuity: this._continuity,
-      start: this.time.start,
-      end: this.time.end,
       from: this.output.from,
-      to: this.output.to
+      to: this.output.to,
+      start: this.time.start,
+      end: this.time.end
     });
   }
 
-  private calculate(x: number){
+  protected calculate(x: number){
     if(x === 0 || x === 1) return x;
     if(this._continuity === "start") return Math.ceil(x*this._steps)/this._steps;
     if(this._continuity === "end") return Math.floor(x*this._steps)/this._steps;

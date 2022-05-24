@@ -14,7 +14,7 @@ export class BackEasing extends Easing {
   private _direction: Direction = "in";
 
   constructor(config?: BackEasingConfiguration){
-    super(x => this.calculate(x), config?.start, config?.end, config?.from, config?.to);
+    super(config?.from, config?.to, config?.start, config?.end);
     if(config?.overshoot) this.overshoot = config.overshoot;
     if(config?.direction) this.direction = config.direction;
   }
@@ -37,14 +37,14 @@ export class BackEasing extends Easing {
     return new BackEasing({
       overshoot: this._overshoot,
       direction: this._direction,
-      start: this.time.start,
-      end: this.time.end,
       from: this.output.from,
-      to: this.output.to
+      to: this.output.to,
+      start: this.time.start,
+      end: this.time.end
     });
   }
 
-  private calculate(x: number){
+  protected calculate(x: number){
     return transform(a => a**2*((this._overshoot+1)*a-this._overshoot), this._direction, x);
   }
 }

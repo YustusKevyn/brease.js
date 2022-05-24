@@ -11,5 +11,20 @@
   },
   "bugs": {
     "url": "https://github.com/YustusKevyn/brease.js/issues"
+  },
+  "main": "lib/cjs",
+  "module": "lib/esm",
+  "types": "lib/types",
+  "files": [
+    "lib/**/*",
+    "breeze.png"
+  ],
+  "scripts": {
+    "build": "npm run build-esm && npm run build-cjs",
+    "build-esm": "tsc -p config/tsconfig.esm.json",
+    "build-cjs": "tsc -p config/tsconfig.cjs.json"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.4"
   }
 }

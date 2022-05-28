@@ -1,4 +1,4 @@
-import { limit } from "./math";
+import { math } from "../util";
 
 type Range = [from: number, to: number];
 
@@ -43,7 +43,7 @@ export class Output {
   toRelative(value: number){
     value -= this._x1;
     value /= this._x2-this._x1;
-    return limit(value, 0, 1);
+    return math.limit(value, 0, 1);
   }
 
   toAbsolute(value: number){

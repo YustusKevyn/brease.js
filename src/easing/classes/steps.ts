@@ -1,7 +1,7 @@
 import type { BaseConfiguration } from "../types";
 
 import { Easing } from "./easing";
-import { lowerLimit } from "../../util/math";
+import { limitMin } from "../../util/math";
 
 export type StepsEasingContinuity = "start" | "end" | "none" | "both";
 
@@ -24,7 +24,7 @@ export class StepsEasing extends Easing {
     return this._steps;
   }
   set steps(value: number){
-    this._steps = lowerLimit(Math.round(value), 1);
+    this._steps = limitMin(Math.round(value), 1);
   }
 
   get continuity(){

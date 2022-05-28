@@ -1,8 +1,7 @@
 import type { Direction, BaseConfiguration } from "../types";
 
 import { Easing } from "./easing";
-import { lowerLimit } from "../../util/math";
-import { transform } from "../../util/function";
+import { math, transform } from "../../util";
 
 export interface BackEasingConfiguration extends BaseConfiguration {
   overshoot?: number | undefined;
@@ -23,7 +22,7 @@ export class BackEasing extends Easing {
     return this._overshoot;
   }
   set overshoot(value: number){
-    this._overshoot = lowerLimit(value, 1);
+    this._overshoot = math.limitMin(value, 1);
   }
 
   get direction(){
@@ -45,6 +44,6 @@ export class BackEasing extends Easing {
   }
 
   protected calculate(x: number){
-    return transform(a => a**2*((this._overshoot+1)*a-this._overshoot), this._direction, x);
+    return transform.direction(a => a**2*((this._overshoot+1)*a-this._overshoot), this._direction, x);
   }
 }

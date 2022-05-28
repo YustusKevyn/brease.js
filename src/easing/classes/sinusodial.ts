@@ -1,8 +1,7 @@
-import type { BaseConfiguration, Direction, Function } from "../types";
+import type { BaseConfiguration, Direction } from "../types";
 
 import { Easing } from "./easing";
-import { lowerLimit } from "../../util/math";
-import { transform } from "../../util/function";
+import { transform, math } from "../../util";
 
 export interface SinusodialEasingConfiguration extends BaseConfiguration {
   degree?: number | undefined;
@@ -23,7 +22,7 @@ export class SinusodialEasing extends Easing {
     return this._degree
   }
   set degree(value: number){
-    this._degree = lowerLimit(value, 1);
+    this._degree = math.limitMin(value, 1);
   }
 
   get direction(){
@@ -45,6 +44,6 @@ export class SinusodialEasing extends Easing {
   }
 
   protected calculate(x: number){
-    return transform(a => 1-Math.cos(a*Math.PI/2)**(1/this._degree), this._direction, x);
+    return transform.direction(a => 1-Math.cos(a*Math.PI/2)**(1/this._degree), this._direction, x);
   }
 }

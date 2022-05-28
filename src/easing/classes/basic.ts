@@ -1,7 +1,7 @@
-import { transform } from "../../util/function";
 import type { BaseConfiguration, Direction, Function } from "../types";
 
 import { Easing } from "./easing";
+import { transform } from "../../util";
 
 export interface BasicEasingConfiguration extends BaseConfiguration {
   fn: Function;
@@ -44,6 +44,6 @@ export class BasicEasing extends Easing {
   }
 
   protected calculate(x: number){
-    return transform(this._fn, this._direction, x);
+    return transform.direction(this._fn, this._direction, x);
   }
 }

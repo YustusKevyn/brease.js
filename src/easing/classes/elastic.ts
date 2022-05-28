@@ -1,8 +1,7 @@
-import type { Direction, BaseConfiguration, Function } from "../types";
+import type { Direction, BaseConfiguration } from "../types";
 
 import { Easing } from "./easing";
-import { lowerLimit } from "../../util/math";
-import { transform } from "../../util/function";
+import { transform, math } from "../../util";
 
 export interface ElasticEasingConfiguration extends BaseConfiguration {
   period?: number | undefined;
@@ -26,14 +25,14 @@ export class ElasticEasing extends Easing {
     return this._period;
   }
   set period(value: number){
-    this._period = lowerLimit(value, 0.1);
+    this._period = math.limitMin(value, 0.1);
   }
 
   get amplitude(){
     return this._amplitude;
   }
   set amplitude(value: number){
-    this._amplitude = lowerLimit(value, 1);
+    this._amplitude = math.limitMin(value, 1);
   }
 
   get direction(){
@@ -56,7 +55,7 @@ export class ElasticEasing extends Easing {
   }
 
   protected calculate(x: number){
-    return transform(a => {
+    return transform.direction(a => {
       let s = this._period/(Math.PI*2)*Math.asin(1/this._amplitude);
       return -this._amplitude*2**(10*(a-1)) * Math.sin((a-1-s)*(2*Math.PI)/this._period);
     }, this._direction, x);

@@ -1,7 +1,5 @@
-import type { Function } from "../types";
-
-import { Time } from "../../util/time";
-import { Output } from "../../util/output";
+import { Time } from "../../helpers/time";
+import { Output } from "../../helpers/output";
 
 export class Easing {
   protected _time: Time;

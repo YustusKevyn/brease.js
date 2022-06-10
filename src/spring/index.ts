@@ -5,6 +5,7 @@ import { Output } from "../helpers/output";
 
 export class Spring {
   private _output: Output;
+  private _duration!: number;
 
   private _m: number = 1;   // mass
   private _k: number = 170; // spring constant
@@ -72,6 +73,11 @@ export class Spring {
       this._v = value;
       this.update();
     }
+  }
+
+  at(t: number){
+    t /= 1000;
+    return this._output.toAbsolute(this.calculate(t));
   }
 
   clone(){

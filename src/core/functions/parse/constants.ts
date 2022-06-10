@@ -7,6 +7,7 @@ export const circularFunctionPattern = createFunctionPattern(["circular"], [], [
 export const elasticFunctionPattern = createFunctionPattern(["elastic"], [], [numberPattern, numberPattern, directionPattern]);
 export const polynomialFunctionPattern = createFunctionPattern(["polynomial"], [], [numberPattern, directionPattern]);
 export const sinusodialFunctionPattern = createFunctionPattern(["sinusodial"], [], [numberPattern, directionPattern]);
+export const springFunctionPattern = createFunctionPattern(["spring"], [], [numberPattern, numberPattern, numberPattern, numberPattern]);
 export const stepsFunctionPattern = createFunctionPattern(["steps"], [numberPattern], ["start|jump-start|end|jump-end|none|both"]);
 
 function createFunctionPattern(name: string[], required: string[] = [], optional: string[] = []){

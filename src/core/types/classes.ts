@@ -1,3 +1,4 @@
+import type { Spring, SpringConfiguration } from "../../spring"
 import type {
   BackEasing, BackEasingConfiguration,
   BasicEasing, BasicEasingConfiguration,
@@ -37,6 +38,10 @@ export interface Classes {
   sinusodial: {
     class: SinusodialEasing,
     config: SinusodialEasingConfiguration
+  },
+  spring: {
+    class: Spring,
+    config: SpringConfiguration
   },
   steps: {
     class: StepsEasing,

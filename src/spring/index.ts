@@ -27,6 +27,10 @@ export class Spring {
     this.update();
   }
 
+  get output(){
+    return this._output;
+  }
+
   get mass(){
     return this._m;
   }
@@ -92,7 +96,7 @@ export class Spring {
   }
 
   private calculate(x: number){
-    // Underdamped 
+    // Underdamped
     if(this._z < 1){
       let decay = Math.E**(-this._z*this._f_n*x),
       sin = (this._v+this._z*this._f_n)/this._f*Math.sin(this._f*x),

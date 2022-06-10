@@ -1,9 +1,11 @@
 import type { Preset } from "../../types";
+import type { SpringConfiguration } from "../../../spring";
 import type { BackEasingConfiguration, CircularEasingConfiguration, EasingDirection, ElasticEasingConfiguration, PolynomialEasingConfiguration, SinusodialEasingConfiguration, StepsEasingConfiguration, StepsEasingContinuity } from "../../../easing";
 
 import { presets } from "../../presets";
+import { Spring } from "../../../spring";
 import { BackEasing, BezierEasing, CircularEasing, ElasticEasing, PolynomialEasing, SinusodialEasing, StepsEasing } from "../../../easing";
-import { backFunctionPattern, bezierFunctionPattern, circularFunctionPattern, elasticFunctionPattern, polynomialFunctionPattern, sinusodialFunctionPattern, stepsFunctionPattern } from "./constants";
+import { backFunctionPattern, bezierFunctionPattern, circularFunctionPattern, elasticFunctionPattern, polynomialFunctionPattern, sinusodialFunctionPattern, springFunctionPattern, stepsFunctionPattern } from "./constants";
 
 interface State {
   input: string;
@@ -15,13 +17,14 @@ export function parse(input: Preset | (string & {})){
 
   let state = {input};
   return (
-    parseBack(state) || 
-    parseBezier(state) || 
-    parseCircular(state) || 
-    parseElastic(state) || 
-    parsePolynomial(state) || 
-    parseSinusodial(state) || 
-    parseSteps(state) || 
+    parseBack(state) ||
+    parseBezier(state) ||
+    parseCircular(state) ||
+    parseElastic(state) ||
+    parsePolynomial(state) ||
+    parseSinusodial(state) ||
+    parseSpring(state) ||
+    parseSteps(state) ||
     null
   );
 }
@@ -91,6 +94,18 @@ function parseSinusodial(state: State){
   if(args[0]) config.degree = parseFloat(args[0]);
   if(args[1]) config.direction = args[1] as EasingDirection;
   return new SinusodialEasing(config);
+}
+
+function parseSpring(state: State){
+  let args = praseArguments(state, springFunctionPattern);
+  if(!args) return null;
+
+  let config: SpringConfiguration = {};
+  if(args[0]) config.mass = parseFloat(args[0]);
+  if(args[1]) config.tension = parseFloat(args[1]);
+  if(args[2]) config.friction = parseFloat(args[2]);
+  if(args[3]) config.velocity = parseFloat(args[3]);
+  return new Spring(config);
 }
 
 function parseSteps(state: State){

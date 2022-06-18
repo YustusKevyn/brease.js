@@ -1,9 +1,12 @@
 import { Time } from "../../helpers/time";
 import { Output } from "../../helpers/output";
 
-export class Easing {
+export abstract class Easing {
   protected _time: Time;
   protected _output: Output;
+  
+  abstract clone(): Easing;
+  protected abstract calculate(t: number): number;
 
   constructor(from?: number, to?: number, start?: number, end?: number){
     this._time = new Time(start, end);
@@ -22,10 +25,6 @@ export class Easing {
     return this._output.toAbsolute(this.calculate(this._time.toRelative(t)));
   }
 
-  clone(){
-    return new Easing(this._output.from, this._output.to, this._time.start, this._time.end);
-  }
-
   delta(t1: number, t2: number){
     return Math.abs(this.at(t2)-this.at(t1));
   }
@@ -38,9 +37,5 @@ export class Easing {
     }
     final.push(this.at(this._time.end));
     return final;
-  }
-
-  protected calculate(x: number){
-    return x;
   }
 }

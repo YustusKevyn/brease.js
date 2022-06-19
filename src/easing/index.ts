@@ -8,7 +8,7 @@ export * from "./classes/polynomial";
 export * from "./classes/sinusodial";
 export * from "./classes/steps";
 
-export {
+export type {
   Function as EasingFunction,
   Direction as EasingDirection
 } from "./types";

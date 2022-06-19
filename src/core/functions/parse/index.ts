@@ -102,9 +102,10 @@ function parseSpring(state: State){
 
   let config: SpringConfiguration = {};
   if(args[0]) config.mass = parseFloat(args[0]);
-  if(args[1]) config.tension = parseFloat(args[1]);
-  if(args[2]) config.friction = parseFloat(args[2]);
+  if(args[1]) config.stiffness = parseFloat(args[1]);
+  if(args[2]) config.damping = parseFloat(args[2]);
   if(args[3]) config.velocity = parseFloat(args[3]);
+  if(args[4]) config.precision = parseFloat(args[4]);
   return new Spring(config);
 }
 

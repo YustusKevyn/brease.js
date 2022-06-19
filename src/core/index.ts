@@ -1,9 +1,9 @@
 export * from "./functions/create";
 export * from "./functions/parse";
 
-export {
-  Configuration,
+export type {
   Type,
-  Preset,
-  Input
+  Configuration,
+  Input,
+  Preset
 } from "./types";

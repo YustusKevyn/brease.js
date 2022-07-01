@@ -1,54 +1,27 @@
 import { math } from "../util";
 
-type Range = [from: number, to: number];
-
 export class Output {
-  private _x1: number;
-  private _x2: number;
+  private _from: number;
+  private _to: number;
 
   constructor(from: number = 0, to: number = 1){
-    this._x1 = from;
-    this._x2 = to;
+    this._from = from;
+    this._to = to;
   }
 
-  get from(){
-    return this._x1;
-  }
-  set from(value: number){
-    this._x1 = value;
-  }
-
-  get to(){
-    return this._x2;
-  }
-  set to(value: number){
-    this._x2 = value;
-  }
-
-  get delta(){
-    return this._x2-this._x1;
-  }
-  set delta(value: number){
-    this._x2 = this._x1+value;
-  }
-
-  get range(): Range {
-    return [this._x1, this._x2];
-  }
-  set range(value: Range){
-    this._x1 = value[0];
-    this._x2 = value[1];
-  }
+  get from(){ return this._from; }
+  get to(){ return this._to; }
+  get delta(){ return this._to-this._from; }
 
   toRelative(value: number){
-    value -= this._x1;
-    value /= this._x2-this._x1;
+    value -= this._from;
+    value /= this._to-this._from;
     return math.limit(value, 0, 1);
   }
 
   toAbsolute(value: number){
-    value *= this._x2-this._x1;
-    value += this._x1;
+    value *= this._to-this._from;
+    value += this._from;
     return value;
   }
 }

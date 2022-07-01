@@ -1,6 +1,6 @@
 import type { Direction, BaseConfiguration } from "../types";
 
-import { Easing } from "./easing";
+import { Easing } from "../easing";
 import { transform, math } from "../../util";
 
 export interface ElasticEasingConfiguration extends BaseConfiguration {
@@ -16,33 +16,16 @@ export class ElasticEasing extends Easing {
 
   constructor(config?: ElasticEasingConfiguration){
     super(config?.from, config?.to, config?.start, config?.end);
-    if(config?.period) this.period = config.period;
-    if(config?.amplitude) this.amplitude = config.amplitude;
-    if(config?.direction) this.direction = config.direction;
+    if(config?.period) this._period = math.limitMin(config.period, 0.1);
+    if(config?.amplitude) this._amplitude = math.limitMin(config.amplitude, 1);
+    if(config?.direction) this._direction = config.direction;
   }
 
-  get period(){
-    return this._period;
-  }
-  set period(value: number){
-    this._period = math.limitMin(value, 0.1);
-  }
+  get period(){ return this._period; }
+  get amplitude(){ return this._amplitude; }
+  get direction(){ return this._direction; }
 
-  get amplitude(){
-    return this._amplitude;
-  }
-  set amplitude(value: number){
-    this._amplitude = math.limitMin(value, 1);
-  }
-
-  get direction(){
-    return this._direction;
-  }
-  set direction(value: Direction){
-    this._direction = value;
-  }
-
-  clone(){
+  clone(config?: Partial<ElasticEasingConfiguration>){
     return new ElasticEasing({
       period: this._period,
       amplitude: this._amplitude,
@@ -50,7 +33,8 @@ export class ElasticEasing extends Easing {
       from: this.output.from,
       to: this.output.to,
       start: this.time.start,
-      end: this.time.end
+      end: this.time.end,
+      ...config
     });
   }
 

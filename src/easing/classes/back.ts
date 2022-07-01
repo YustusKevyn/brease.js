@@ -1,6 +1,6 @@
 import type { Direction, BaseConfiguration } from "../types";
 
-import { Easing } from "./easing";
+import { Easing } from "../easing";
 import { math, transform } from "../../util";
 
 export interface BackEasingConfiguration extends BaseConfiguration {
@@ -14,32 +14,22 @@ export class BackEasing extends Easing {
 
   constructor(config?: BackEasingConfiguration){
     super(config?.from, config?.to, config?.start, config?.end);
-    if(config?.overshoot) this.overshoot = config.overshoot;
-    if(config?.direction) this.direction = config.direction;
+    if(config?.direction) this._direction = config.direction;
+    if(config?.overshoot) this._overshoot = math.limitMin(config.overshoot, 1);
   }
 
-  get overshoot(){
-    return this._overshoot;
-  }
-  set overshoot(value: number){
-    this._overshoot = math.limitMin(value, 1);
-  }
+  get overshoot(){ return this._overshoot; }
+  get direction(){ return this._direction; }
 
-  get direction(){
-    return this._direction;
-  }
-  set direction(value: Direction){
-    this._direction = value;
-  }
-
-  clone(){
+  clone(config?: Partial<BackEasingConfiguration>){
     return new BackEasing({
       overshoot: this._overshoot,
       direction: this._direction,
       from: this.output.from,
       to: this.output.to,
       start: this.time.start,
-      end: this.time.end
+      end: this.time.end,
+      ...config
     });
   }
 

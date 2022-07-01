@@ -1,7 +1,7 @@
 import type { BaseConfiguration } from "../types";
 
-import { Easing } from "./easing";
 import { math } from "../../util";
+import { Easing } from "../easing";
 
 export interface BezierEasingConfiguration extends BaseConfiguration {
   x1?: number | undefined;
@@ -16,13 +16,15 @@ export class BezierEasing extends Easing {
   private _x2: number = 1;
   private _y2: number = 1;
 
-  private _lut!: Float32Array;
+  // Lookup Table
+  private _lut: Float32Array;
   private _lutSize = 11;
   private _lutGap = 1/(this._lutSize-1);
 
-  private _newtonEpsilon = 1e-14;
-  private _newtonTolerance = 1e-7;
-  private _newtonIterations = 10;
+  // Newton's Method
+  private _nEpsilon = 1e-14;
+  private _Tolerance = 1e-7;
+  private _nIterations = 10;
 
   constructor(config?: BezierEasingConfiguration){
     super(config?.from, config?.to, config?.start, config?.end);
@@ -30,46 +32,20 @@ export class BezierEasing extends Easing {
     if(config?.x2) this._x2 = math.limit(config.x2, 0, 1);
     if(config?.y1) this._y1 = config.y1;
     if(config?.y2) this._y2 = config.y2;
-    this.sample();
-  }
-
-  get x1(){
-    return this._x1;
-  }
-  set x1(value: number){
-    value = math.limit(value, 0, 1);
-    if(value !== this._x1){
-      this._x1 = value;
-      this.sample();
+    
+    // Lookup table
+    this._lut = new Float32Array(this._lutSize);
+    for(let i = 0; i < this._lutSize; i++){
+      this._lut[i] = this.bezier(i*this._lutGap, this._x1, this._x2);
     }
   }
 
-  get y1(){
-    return this._y1;
-  }
-  set y1(value: number){
-    this._y1 = value;
-  }
+  get x1(){ return this._x1; }
+  get y1(){ return this._y1; }
+  get x2(){ return this._x1; }
+  get y2(){ return this._y2; }
 
-  get x2(){
-    return this._x1;
-  }
-  set x2(value: number){
-    value = math.limit(value, 0, 1);
-    if(value !== this._x2){
-      this._x2 = value;
-      this.sample();
-    }
-  }
-
-  get y2(){
-    return this._y2;
-  }
-  set y2(value: number){
-    this._y2 = value;
-  }
-
-  clone(){
+  clone(config?: Partial<BezierEasingConfiguration>){
     return new BezierEasing({
       x1: this._x1,
       y1: this._y1,
@@ -78,7 +54,8 @@ export class BezierEasing extends Easing {
       from: this.output.from,
       to: this.output.to,
       start: this.time.start,
-      end: this.time.end
+      end: this.time.end,
+      ...config
     });
   }
 
@@ -105,16 +82,6 @@ export class BezierEasing extends Easing {
   }
 
   /**
-   * Generates the lookup table
-   */
-  private sample(){
-    this._lut = new Float32Array(this._lutSize);
-    for(let i = 0; i < this._lutSize; i++){
-      this._lut[i] = this.bezier(i*this._lutGap, this._x1, this._x2);
-    }
-  }
-
-  /**
    * Approximates t for the specified distance using the lookup table
    * @param d distance
    * @returns t
@@ -138,12 +105,12 @@ export class BezierEasing extends Easing {
    * @returns `false` if newton's method did not converge
    */
   private iterate(d: number, t: number, p1: number, p2: number){
-    for(let i = 0; i < this._newtonIterations; i++){
+    for(let i = 0; i < this._nIterations; i++){
       let y = this.bezier(t, p1, p2), dy = this.derivative(t, p1, p2);
-      if(Math.abs(dy) <= this._newtonEpsilon) return false;
+      if(Math.abs(dy) <= this._nEpsilon) return false;
 
       let dt = (y-d)/dy; t -= dt;
-      if(Math.abs(dt) <= this._newtonTolerance) return t;
+      if(Math.abs(dt) <= this._Tolerance) return t;
     }
     return false;
   }

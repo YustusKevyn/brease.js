@@ -1,7 +1,7 @@
 import type { BaseConfiguration } from "../types";
 
-import { Easing } from "./easing";
-import { limitMin } from "../../util/math";
+import { math } from "../../util";
+import { Easing } from "../easing";
 
 export type StepsEasingContinuity = "start" | "end" | "none" | "both";
 
@@ -16,32 +16,22 @@ export class StepsEasing extends Easing {
 
   constructor(config?: StepsEasingConfiguration){
     super(config?.from, config?.to, config?.start, config?.end);
-    if(config?.steps) this.steps = config.steps;
-    if(config?.continuity) this.continuity = config.continuity;
+    if(config?.steps) this._steps = math.limitMin(Math.round(config.steps), 1);
+    if(config?.continuity) this._continuity = config.continuity;
   }
 
-  get steps(){
-    return this._steps;
-  }
-  set steps(value: number){
-    this._steps = limitMin(Math.round(value), 1);
-  }
+  get steps(){ return this._steps; }
+  get continuity(){ return this._continuity; }
 
-  get continuity(){
-    return this._continuity;
-  }
-  set continuity(value: StepsEasingContinuity){
-    this._continuity = value;
-  }
-
-  clone(){
+  clone(config?: Partial<StepsEasingConfiguration>){
     return new StepsEasing({
       steps: this._steps,
       continuity: this._continuity,
       from: this.output.from,
       to: this.output.to,
       start: this.time.start,
-      end: this.time.end
+      end: this.time.end,
+      ...config
     });
   }
 

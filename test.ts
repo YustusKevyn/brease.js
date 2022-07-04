@@ -4,13 +4,16 @@ console.clear();
 console.log("-".repeat(80));
 console.log(new Date().getTime());
 
-let spring = new Brease.Spring({mass: 10, stiffness: 180, damping: 20, clamp: false});
-display(spring);
+let spring = new Brease.Spring({mass: 10, stiffness: 180, damping: 20});
+// display(spring);
 
-// let bezier = new Brease.BezierEasing({x1: 0.4, x2: 0.4});
+let back = new Brease.BackEasing({overshoot: 2})
+// display(back);
+
+let bezier = new Brease.BezierEasing({x1: 0.4, x2: 0.4});
 // display(bezier);
 
-function display(easing: Brease.Easing | Brease.Spring, n = 50){
-  easing = easing.clone({to: 80});
-  console.log(easing.keyframes(n).map(f => " ".repeat(20+Math.round(f))+"*").join("\n"));
+function display(timing: Brease.Timing, n = 50){
+  let m = timing.toMotion({from: 20, to: 100, start: 100, end: 10000});
+  console.log(m.keyframes(n).map(f => f < 0 ? "" : " ".repeat(Math.round(f))+"*").join("\n"));
 }

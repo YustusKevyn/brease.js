@@ -1,2 +1,2 @@
-export * from "./easing";
-export * from "./spring";
+export * from "./motion";
+export * from "./timing";

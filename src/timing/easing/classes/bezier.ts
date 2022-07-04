@@ -1,9 +1,7 @@
-import type { BaseConfiguration } from "../types";
-
-import { math } from "../../util";
 import { Easing } from "../easing";
+import { math } from "../../../util";
 
-export interface BezierEasingConfiguration extends BaseConfiguration {
+export interface BezierEasingConfiguration {
   x1?: number | undefined;
   y1?: number | undefined;
   x2?: number | undefined;
@@ -27,11 +25,11 @@ export class BezierEasing extends Easing {
   private _nIterations = 10;
 
   constructor(config?: BezierEasingConfiguration){
-    super(config?.from, config?.to, config?.start, config?.end);
-    if(config?.x1) this._x1 = math.limit(config.x1, 0, 1);
-    if(config?.x2) this._x2 = math.limit(config.x2, 0, 1);
-    if(config?.y1) this._y1 = config.y1;
-    if(config?.y2) this._y2 = config.y2;
+    super();
+    if(config?.x1 !== undefined) this._x1 = math.limit(config.x1, 0, 1);
+    if(config?.x2 !== undefined) this._x2 = math.limit(config.x2, 0, 1);
+    if(config?.y1 !== undefined) this._y1 = config.y1;
+    if(config?.y2 !== undefined) this._y2 = config.y2;
     
     // Lookup table
     this._lut = new Float32Array(this._lutSize);
@@ -42,19 +40,15 @@ export class BezierEasing extends Easing {
 
   get x1(){ return this._x1; }
   get y1(){ return this._y1; }
-  get x2(){ return this._x1; }
+  get x2(){ return this._x2; }
   get y2(){ return this._y2; }
 
-  clone(config?: Partial<BezierEasingConfiguration>){
+  clone(config?: BezierEasingConfiguration){
     return new BezierEasing({
       x1: this._x1,
       y1: this._y1,
       x2: this._x2,
       y2: this._y2,
-      from: this.output.from,
-      to: this.output.to,
-      start: this.time.start,
-      end: this.time.end,
       ...config
     });
   }
@@ -90,7 +84,7 @@ export class BezierEasing extends Easing {
     for(let i = 0; i < this._lutSize-1; i++){
       let s = this._lut[i], e = this._lut[i+1];
       if(math.between(d, s, e)){
-        return math.remap(d, s, e, i*this._lutGap, (i+1)*this._lutGap);
+        return math.remap(d, s, this._lutGap*i, e, this._lutGap*(i+1));
       }
     }
     return d/this._lut[this._lutSize-1];
@@ -121,9 +115,7 @@ export class BezierEasing extends Easing {
    * @returns bézier value
    */
   protected calculate(dist: number){
-    if(dist === 0 || dist === 1) return dist;
     if(this._x1 === this._y1 && this._x2 === this._y2) return dist;
-
     let t = this.lookup(dist), nt = this.iterate(dist, t, this._x1, this._x2);
     return this.bezier(nt === false ? t : nt, this._y1, this._y2);
   }

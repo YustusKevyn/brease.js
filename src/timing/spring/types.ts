@@ -1,8 +1,4 @@
 export interface Configuration {
-  start?: number | undefined;
-  end?: number | undefined;
-  from?: number | undefined;
-  to?: number | undefined;
   mass?: number | undefined;
   damping?: number | undefined;
   velocity?: number | undefined;

@@ -14,6 +14,6 @@ export function between(value: number, start: number, end: number){
   return value >= start && value <= end;
 }
 
-export function remap(value: number, inStart: number, inEnd: number, outStart: number, outEnd: number){
-  return (value-inStart)*(outEnd-outStart)/(inEnd-inStart)+outStart;
+export function remap(x: number, x1: number, y1: number, x2: number, y2: number){
+  return (x-x1)*(y2-y1)/(x2-x1)+y1;
 }

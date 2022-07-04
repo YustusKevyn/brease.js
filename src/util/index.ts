@@ -1,2 +1,3 @@
 export * as math from "./math";
-export * as transform from "./transform";
+export * as regex from "./regex";
+export * as pattern from "./pattern";
